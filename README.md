@@ -1,2 +1,2 @@
 # udptest
-udp test
+udp simple test tool

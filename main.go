@@ -22,6 +22,7 @@ func main() {
 
 	p := flag.Int("p", 8888, "listen port")
 	t := flag.Int("t", 0, "target port")
+	sip := flag.String("sip", "127.0.0.1", "server ip")
 	s := flag.String("s", "hello", "send string")
 	flag.Usage = func() {
 		fmt.Printf(usage)
@@ -51,7 +52,7 @@ func main() {
 
 	if *t > 0 {
 
-		ipaddrtarget, err := net.ResolveUDPAddr("udp", "127.0.0.1:"+strconv.Itoa(*t))
+		ipaddrtarget, err := net.ResolveUDPAddr("udp", *sip+":"+strconv.Itoa(*t))
 		if err != nil {
 			fmt.Println(err)
 			return
@@ -64,7 +65,7 @@ func main() {
 			return
 		}
 
-		fmt.Printf("send to %d %s \n", *t, *s)
+		fmt.Printf("send to %v %s \n", ipaddrtarget, *s)
 	}
 
 	bytes := make([]byte, 10240)
